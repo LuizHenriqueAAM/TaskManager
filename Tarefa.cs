@@ -1,39 +1,39 @@
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 namespace Tarefas
 {
-    public class CrudTarefas
+    public class Tarefas
     {
-        List<CrudTarefas> ListaDeTarefasIncompletas = new List<CrudTarefas>();
-        List<CrudTarefas> ListaDeTarefasCompletas = new List<CrudTarefas>();
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+        private int _Id { get; set; }
+        private string Estado { get; set; }
 
-        public string? nome { get; set; }
-        public string? desc { get; set; }
-        bool estado { get; set; }
-        private int id { get; set; }
-
-        public CrudTarefas(string nome, string desc, bool estado, int id)
+        public Tarefas(string nome, string descricao, int id, string estado)
         {
-
-            this.nome = nome;
-            this.desc = desc;
-            this.estado = estado = false;
-            this.id = id;
+            this.Nome = nome = "Blank";
+            this.Descricao = descricao = "Blank";
+            this._Id = id = 0;
+            this.Estado = estado = "Inacabado";
         }
-        public string AdicionarNaLista()
+
+        public static List<Tarefas> ListaDeImcompletas = new List<Tarefas>();
+        List<Tarefas> ListaDeCompletas = new List<Tarefas>();
+
+        public static void Adicionar(Tarefas objt)
         {
-            this.id = id + ListaDeTarefasIncompletas.Count() + 1;
-            ListaDeTarefasIncompletas.Add(this);
-            return $"Tarefa {this.nome} foi adicionada a lista";
+            ListaDeImcompletas.Add(objt);
         }
-        public void ExibirLista()
+        public override string ToString()
         {
-            foreach (var TarefaNova in ListaDeTarefasIncompletas)
+            return $"Tarefa N°: {_Id}, Nome: {Nome}, Descrição: {Descricao}, Estado: {Estado}";
+        }
+        public static void ExibirLista()
+        {
+            foreach (Tarefas objt in ListaDeImcompletas)
             {
-                Console.WriteLine($" Id: {this.id} Nome: {this.nome}");
+                Console.WriteLine(objt.ToString());
             }
         }
-
 
     }
 }
