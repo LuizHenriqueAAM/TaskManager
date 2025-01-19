@@ -43,19 +43,28 @@ namespace Tarefas
         }
         public static void Deletar()
         {
-            Console.WriteLine("Qual tarefa deseja deletar: ");
-            int alvo = int.Parse(Console.ReadLine()!);
-            foreach (Tarefas objt in ListaDeImcompletas)
+            Console.WriteLine("Lista de tarefas: ");
+            Tarefas.ExibirLista();
+            Console.WriteLine("Qual tarefa deseja deletar: (insira o ID)");
+            if(!int.TryParse(Console.ReadLine(), out int alvo))
             {
-                if(objt._Id == alvo)
-                {
-                    ListaDeImcompletas.Remove(objt);
-                }
+                Console.WriteLine("Entrada inválida! Por Favor, insira um número.");
+                return;
             }
-            foreach (Tarefas objt in ListaDeImcompletas)
+
+            Tarefas? tarefaParaDeletar = ListaDeImcompletas.FistOrDefault(objt => objt._Id == alvo);
+
+            if(tarefaParaDeletar != null)
             {
-                objt._Id = objt._Id - 1;
+                ListaDeImcompletas.Remove(tarefaParaDeletar);
+                Console.WriteLine($"Tarefa com ID {alvo} deletada com sucesso.");
             }
+
+            for(int i = 0; i < ListaDeImcompletas.Count(); i++)
+            {
+                ListaDeImcompletas[i]._Id = i + 1;
+            }
+            
         }
     }
 }
